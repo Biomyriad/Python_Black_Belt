@@ -1,0 +1,51 @@
+{% extends 'layouts/single_column_layout_members.html' %}
+
+{% block title %}Sasquatches Websightings - Show{% endblock %}
+
+{% block content %}
+    <div class="panel rounded p-3 mt-3 mx-auto flex-grow-1" style="height: min-content; min-width: 450px;">
+        <h4 class="text-center mt-1 mx-auto rounded">{{sighting.location}} on {{sighting.date_sighted | formatdatetime("%B %d %Y")}}</h4>
+        
+        <hr class="">
+
+        <div class="d-flex w-75 mx-auto">
+            <div class="ps-2 mx-5 w-50">
+                <h5>What Happened:</h5>
+                <p class="ps-3 mb-4">{{sighting.what_happened}}</p>
+
+                <div class="d-flex text-center"> 
+                    <h5 class="mb-4">Number of Sasquatches: </h5> <p class="ps-2 fs-6"> {{sighting.num_of_sasquatches}}</p>
+                </div>                
+                
+                <div class="d-flex">
+                    <h5 class="mb-4">Reported By: </h5> <p class="ps-2 fs-6">{{sighting.reported_by_name}}</p> 
+                </div>
+
+            </div>
+
+            <div class="ms-5">
+                <h5>Skeptics:</h5>
+
+                {% for skeptic in sighting.skeptics %}
+                    <p class="ms-3 mb-2">{{skeptic.skeptic_name}}</p>
+                {% endfor %}    
+                
+                <div class="mb-4"></div>
+
+                <form action="/setskeptical" method="post">
+
+                    {% if user_is_skeptic %}
+                        <button type="submit" class="btn-sm btn-primary" name="action" value="believe">Believe It</button> 
+                    {% else %}
+                        <button type="submit" class="btn-sm btn-primary" name="action" value="skeptical">I'm Skeptical</button> 
+                    {% endif %}
+
+                    
+                </form>         
+            </div>            
+        </div>
+
+
+        <hr class="">
+    </div>
+{% endblock content %}

@@ -1,0 +1,56 @@
+{% extends 'layouts/single_column_layout_members.html' %}
+
+{% block title %}Sasquatches Websightings - New Sighting{% endblock %}
+
+{% block content %}
+
+    {% if get_flashed_messages(category_filter=['sighting']) %}
+        {% set messages = get_flashed_messages(category_filter=['sighting']) %}
+    {% endif %}
+
+    <div class="panel rounded p-3 mt-3 mx-auto flex-grow-1" style="height: min-content; min-width: 450px;">
+        <h4 class="text-center mt-1 mx-auto rounded">Report a Sighting</h4>
+        
+        <hr class="">
+
+        <form action="/report/sighting" method="post" novalidate="novalidate">
+
+            <div class="d-flex justify-content-between">
+
+                <div class="w-50" style="margin-left: 80px;">
+                    <p class="form-label mb-0 fw-bold">Sighting Details:</p>
+                    <p class="validation" {{ messages | get_validation_visibility("location")}}>{{ messages | get_validation_message("location") }}</p>
+                    <input type="text" class="form-control mb-2" name="location" placeholder="Location">
+
+                    <div class="row">
+                        <div class="col">
+                            <p class="validation" {{ messages | get_validation_visibility("what_happened")}}>{{ messages | get_validation_message("what_happened") }}</p>
+                            <textarea class="form-control mb-2" name="what_happened" rows="3" placeholder="What Happened"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="w-25" style="margin-right: 80px;">
+                    <p class="validation ps-0 ms-0" {{ messages | get_validation_visibility("date_sighted")}}>{{ messages | get_validation_message("date_sighted") }}</p>
+                    <label class="form-label mb-0 fw-bold" for="date_sighted">Date of Sighting:</label>
+                    <input class="form-control mb-2" type="date" name="date_sighted">
+
+                    <p class="validation ps-0 ms-0" {{ messages | get_validation_visibility("num_of_sasquatches")}}>{{ messages | get_validation_message("num_of_sasquatches") }}</p>
+                    <label class="form-label mb-0 fw-bold" for="num_of_sasquatches">Number of Sasquatches:</label>
+                    <input class="form-control mb-2" type="number"name="num_of_sasquatches">
+
+                </div>
+
+            </div>
+
+            <hr class="">
+
+            <div class="d-flex justify-content-end mx-2">
+                <button type="submit" class="btn-sm btn-primary" name="action" value="submit">Report</button> 
+            </div>
+
+        </form>
+
+    </div>
+
+{% endblock content %}
