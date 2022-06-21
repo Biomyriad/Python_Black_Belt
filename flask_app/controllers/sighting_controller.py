@@ -33,7 +33,7 @@ def route_view(sighting_id):
 @app.route('/new/sighting')
 def route_new_sighting():
 
-    return render_template("pages/new_Sighting.html") 
+    return render_template("pages/new_sighting.html") 
 
 @app.route('/edit/<int:sighting_id>')
 def route_edit_sighting(sighting_id):
